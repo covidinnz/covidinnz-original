@@ -41,8 +41,10 @@ export default function _App({ Component, pageProps }) {
             <link rel='shortcut icon' href='/images/logo_yellow.png' />
         </Head>
         
-        <Script data-ad-client='ca-pub-5722227635911083' async src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' />
-        
+        <Script
+            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5722227635911083"
+            crossorigin="anonymous" />
+
         {isLoading
             ? <h1>Loading...</h1>
             : <>
