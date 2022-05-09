@@ -1,0 +1,7 @@
+public/cache/
+public/docs/
+node_modules/
+template/
+.yarn/cache/
+.next/
+.env

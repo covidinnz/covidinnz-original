@@ -1,0 +1,73 @@
+{
+    "name": "covidinnz",
+    "version": "1.0.0",
+    "description": "Description",
+    "repository": "https://github.com/covidinnz/covidinnz",
+    "author": "ApteryxXYZ",
+    "license": "MIT",
+    "private": true,
+    "packageManager": "yarn@3.2.0",
+    "scripts": {
+        "serve": "next start -p 3003",
+        "start": "pm2 start npm --name=covidinnz -- run serve",
+        "restart": "pm2 restart covidinnz",
+        "stop": "pm2 stop covidinnz-client",
+        "dev": "next dev",
+        "template": "rm -rf template && git clone https://github.com/covidinnz/apidoc-template template",
+        "docs": "apidoc -i src/ -o public/docs/ -t template/",
+        "pull": "git reset --hard && git pull"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "@mui/icons-material": "^5.6.2",
+        "@mui/material": "^5.6.4",
+        "apidoc": "0.29.0",
+        "chart.js": "^3.7.1",
+        "cheerio": "0.22.0",
+        "html-table-to-json": "^1.0.0",
+        "moment": "^2.29.3",
+        "next": "^12.1.6",
+        "nextjs-cors": "^2.1.1",
+        "node-fetch": "^3.2.4",
+        "papaparse": "^5.3.2",
+        "react": "^18.1.0",
+        "react-chartjs-2": "^4.1.0",
+        "react-dom": "^18.1.0",
+        "react-icons": "^4.3.1"
+    },
+    "apidoc": {
+        "name": "COVID in NZ API",
+        "title": "COVID in NZ API",
+        "version": "1.0.0",
+        "defaultVersion": "1.0.0",
+        "url": "https://covidinnz.com/api",
+        "sampleUrl": "https://covidinnz.com/api",
+        "header": {
+            "title": "Introduction",
+            "filename": "public/HEADER.md"
+        },
+        "order": [
+            "Cases",
+            "ImportantCases",
+            "SingleSortedCases",
+            "AllSortedCases",
+            "Situation",
+            "SituationSummary",
+            "LocationsOfInterest",
+            "Tracer",
+            "TracerData",
+            "Vaccinations",
+            "VaccinationRates",
+            "SingleSortedVaccinations",
+            "AllSortedVaccinations",
+            "Meta"
+        ]
+    },
+    "devDependencies": {
+        "@sapphire/eslint-config": "^4.3.4",
+        "eslint": "^8.15.0",
+        "eslint-config-next": "12.1.6",
+        "prettier": "^2.6.2"
+    }
+}
