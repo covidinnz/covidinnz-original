@@ -18,14 +18,16 @@ export default class GoogleAd extends Component {
     }
 
     render() {
-        return <ins
-            className={`adsbygoogle ${this.props.className}`}
-            style={{ display: 'block ' }}
-            data-ad-client='ca-pub-5722227635911083'
-            data-ad-slot={this.slot}
-            data-ad-format='auto'
-            data-adtest={process.env.NODE_ENV === 'development' ? 'on' : 'off'}
-            data-full-width-responsive='true'
-        />
+        return (
+            <ins
+                className={`adsbygoogle ${this.props.className}`}
+                style={{ display: 'block ' }}
+                data-ad-client="ca-pub-5722227635911083"
+                data-ad-slot={this.slot}
+                data-ad-format="auto"
+                data-adtest={process.env.NODE_ENV === 'development' ? 'on' : 'off'}
+                data-full-width-responsive="true"
+            />
+        );
     }
 }

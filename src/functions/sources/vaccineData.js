@@ -5,18 +5,19 @@ import cheerio from 'cheerio';
 import { parseDate } from '@functions/parseDate';
 import { resolveValue, Ethnicities, Boards } from '@constants/units';
 
-const SOURCE_URL = 'https://www.health.govt.nz/our-work' +
+const SOURCE_URL =
+    'https://www.health.govt.nz/our-work' +
     '/diseases-and-conditions/covid-19-novel-coronavirus' +
     '/covid-19-data-and-statistics/covid-19-vaccine-data';
 
 export default async function () {
-    const body = await fetch(SOURCE_URL).then(res => res.text());
+    const body = await fetch(SOURCE_URL).then((res) => res.text());
     const $ = cheerio.load(body);
     const tables = $('table');
     const ps = Array.from($('p'))
-        .map(i => i.children[0])
-        .map(j => j.children?.length ? j.children[0] : j);
-    
+        .map((i) => i.children[0])
+        .map((j) => (j.children?.length ? j.children[0] : j));
+
     const twelvePlusDoses = parseTwelvePlus(cheerio.html(tables[0]));
     const fiveToElevenDoses = parseFiveToEleven(cheerio.html(tables[1]));
     const allByEthnicity = parseByEthnicity(cheerio.html(tables[2]));
@@ -34,8 +35,8 @@ export default async function () {
 }
 
 export function combineBoards(twelvePlus, fiveToEleven) {
-    return twelvePlus.map(tp => {
-        const fe = fiveToEleven.find(f => f.id === tp.id);
+    return twelvePlus.map((tp) => {
+        const fe = fiveToEleven.find((f) => f.id === tp.id);
         return {
             id: tp.id,
             board: tp.board,
@@ -63,15 +64,14 @@ export function combineBoards(twelvePlus, fiveToEleven) {
             fullyPercent: (tp.fullyPercent + fe.fullyPercent) / 2,
             booster: tp.booster,
             population: tp.population + fe.population,
-        }
+        };
     });
 }
 
-const clean = s => +s.replace(/\*|,|%|\>/g, '') ?? null;
+const clean = (s) => +s.replace(/\*|,|%|\>/g, '') ?? null;
 
 function parseTwelvePlus(html) {
-    const [f, s, t, b, a] = httj.parse(html).results[0]
-        .map(i => Object.values(i));
+    const [f, s, t, b, a] = httj.parse(html).results[0].map((i) => Object.values(i));
     return {
         first: {
             yesterday: clean(f[0]),
@@ -95,8 +95,7 @@ function parseTwelvePlus(html) {
 }
 
 function parseFiveToEleven(html) {
-    const [f, s] = httj.parse(html).results[0]
-        .map(i => Object.values(i));
+    const [f, s] = httj.parse(html).results[0].map((i) => Object.values(i));
     return {
         first: {
             yesterday: clean(f[0]),
@@ -108,14 +107,12 @@ function parseFiveToEleven(html) {
         },
         yesterday: clean(f[0]) + clean(s[0]),
         total: clean(f[1]) + clean(s[1]),
-    }
+    };
 }
 
 function parseByEthnicity(html) {
-    const parsed = httj.parse(html
-        .replace(/th nowrap="nowrap"/g, 'td'))
-        .results[0].map(p => Object.values(p));
-    return parsed.map(p => ({
+    const parsed = httj.parse(html.replace(/th nowrap="nowrap"/g, 'td')).results[0].map((p) => Object.values(p));
+    return parsed.map((p) => ({
         id: resolveValue(Ethnicities, p[0])?.id,
         ethnicity: resolveValue(Ethnicities, p[0])?.name,
         twelvePlus: {
@@ -124,7 +121,7 @@ function parseByEthnicity(html) {
             population: clean(p[3]),
             eighteenPlus: {
                 bootser: clean(p[4]),
-            }
+            },
         },
         fiveToEleven: {
             partially: clean(p[5]),
@@ -140,10 +137,8 @@ function parseByEthnicity(html) {
 }
 
 function parseTwelvePlusByBoard(html) {
-    const parsed = httj.parse(html
-        .replace(/th nowrap="nowrap"/g, 'td'))
-        .results[0].map(p => Object.values(p));
-    return parsed.map(p => ({
+    const parsed = httj.parse(html.replace(/th nowrap="nowrap"/g, 'td')).results[0].map((p) => Object.values(p));
+    return parsed.map((p) => ({
         id: resolveValue(Boards, p[0])?.id,
         board: resolveValue(Boards, p[0])?.name,
         partially: clean(p[1]),
@@ -158,10 +153,8 @@ function parseTwelvePlusByBoard(html) {
 }
 
 function parseFiveToElevenByBoard(html) {
-    const parsed = httj.parse(html
-        .replace(/th nowrap="nowrap"/g, 'td'))
-        .results[0].map(p => Object.values(p));
-    return parsed.map(p => ({
+    const parsed = httj.parse(html.replace(/th nowrap="nowrap"/g, 'td')).results[0].map((p) => Object.values(p));
+    return parsed.map((p) => ({
         id: resolveValue(Boards, p[0])?.id,
         board: resolveValue(Boards, p[0])?.name,
         partially: clean(p[1]),

@@ -12,8 +12,8 @@ export async function getJson(filePath) {
     }
 
     const fileContent = !cacheExists ? '{}' : fs.readFileSync(filePath).toString();
-    const parsedJson = await new Promise(r => r(JSON.parse(fileContent)))
-        .catch(() => fs.writeFileSync(filePath, '{}')) || {};
+    const parsedJson =
+        (await new Promise((r) => r(JSON.parse(fileContent))).catch(() => fs.writeFileSync(filePath, '{}'))) || {};
 
     return parsedJson;
 }

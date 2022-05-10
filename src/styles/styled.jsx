@@ -4,13 +4,30 @@ import { HiOutlineArrowsExpand, HiLink } from 'react-icons/hi';
 import { COLOURS, FONTS, SIZES } from '@constants/variables';
 
 export function Title({ title, subtitle, url, id }) {
-    const link = url ? url.startsWith('http') ?
-        <a href={url} target='_blank'> <HiLink /></a> :
-        <a href={url}> <HiOutlineArrowsExpand /></a> : null;
-    return <>
-        {title ? <h1>{title}{link}</h1> : null}
-        {subtitle ? <h2>{subtitle}</h2> : null}
-    </>
+    const link = url ? (
+        url.startsWith('http') ? (
+            <a href={url} target="_blank">
+                {' '}
+                <HiLink />
+            </a>
+        ) : (
+            <a href={url}>
+                {' '}
+                <HiOutlineArrowsExpand />
+            </a>
+        )
+    ) : null;
+    return (
+        <>
+            {title ? (
+                <h1>
+                    {title}
+                    {link}
+                </h1>
+            ) : null}
+            {subtitle ? <h2>{subtitle}</h2> : null}
+        </>
+    );
 }
 
 export const Page = styled.div`
@@ -46,7 +63,7 @@ export const Column = styled.div`
 export const Row = styled.div`
     display: flex;
     flex-direction: row;
-    
+
     @media (max-width: ${SIZES.MOBILE_WIDTH}) {
         flex-direction: column;
     }
@@ -60,7 +77,7 @@ export const Item = styled.div`
     width: 90%;
     color: ${COLOURS.WHITE};
     width: fill-content;
-    
+
     h1 {
         font-weight: ${FONTS.SEMI_BOLD};
         font-size: ${FONTS.XXL};
@@ -80,7 +97,7 @@ export const Item = styled.div`
         text-align: right;
         font-size: ${FONTS.XXS};
         color: ${COLOURS.WHITE};
-    
+
         a {
             color: ${COLOURS.TEAL};
         }

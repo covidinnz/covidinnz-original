@@ -1,7 +1,9 @@
 export function resolveValue(constants, value) {
-    return constants.find(c => [c.name, c.id, ...(c.alts ?? [])]
-        .map(a => a.toString().toLowerCase())
-        .includes(value.toString().toLowerCase()));
+    return constants.find((c) =>
+        [c.name, c.id, ...(c.alts ?? [])]
+            .map((a) => a.toString().toLowerCase())
+            .includes(value.toString().toLowerCase()),
+    );
 }
 
 export const CountTypes = [
@@ -11,8 +13,16 @@ export const CountTypes = [
 ];
 
 export const ActiveSources = [
-    { id: 1, name: 'Managed Facilities', alts: ['PPeople who travelled internationally and were diagnosed in managed facilities at the border '] },
-    { id: 2, name: 'Contact Overseas', alts: ['People in close contact with someone who caught COVID-19 while overseas'] },
+    {
+        id: 1,
+        name: 'Managed Facilities',
+        alts: ['PPeople who travelled internationally and were diagnosed in managed facilities at the border '],
+    },
+    {
+        id: 2,
+        name: 'Contact Overseas',
+        alts: ['People in close contact with someone who caught COVID-19 while overseas'],
+    },
     { id: 3, name: 'Contact Locally', alts: ['Caught COVID-19 from someone locally'] },
     { id: 4, name: 'Locally Unknown', alts: ['Caught COVID-19 within NZ, but source is unknown'] },
     { id: 5, name: 'Under Investigation', alts: ['Under investigation'] },
@@ -20,13 +30,17 @@ export const ActiveSources = [
 
 export const Boards = [
     { id: -1, name: 'Total', alts: ['New Zealand', 'Total'] },
-    { id: 0, name: 'Other / Unknown', alts: ['Overseas / Unknown', 'Overseas', 'Unknown', 'Managed Isolation', 'Managed', 'Quarantine'] },
+    {
+        id: 0,
+        name: 'Other / Unknown',
+        alts: ['Overseas / Unknown', 'Overseas', 'Unknown', 'Managed Isolation', 'Managed', 'Quarantine'],
+    },
     { id: 1, name: 'Auckland' },
     { id: 2, name: 'Bay of Plenty' },
     { id: 3, name: 'Canterbury' },
     { id: 4, name: 'Capital and Coast' },
     { id: 5, name: 'Counties Manukau' },
-    { id: 6, name: 'Hawke\'s Bay', alts: ['Hawkes Bay'] },
+    { id: 6, name: "Hawke's Bay", alts: ['Hawkes Bay'] },
     { id: 7, name: 'Hutt Valley' },
     { id: 8, name: 'Lakes' },
     { id: 9, name: 'Mid Central', alts: ['MidCentral'] },
@@ -41,17 +55,25 @@ export const Boards = [
     { id: 18, name: 'Waitematā', alts: ['Waitemata'] },
     { id: 19, name: 'West Coast' },
     { id: 20, name: 'Whanganui' },
-    { id: 21, name: 'At the border', }
+    { id: 21, name: 'At the border' },
 ];
 
 export const Ethnicities = [
     { id: -1, name: 'Total' },
     { id: 0, name: 'Unknown' },
     { id: 1, name: 'Māori', alts: ['Maori'] },
-    { id: 2, name: 'European, Other', alts: ['European or Other', 'European/Other', 'European / Other'] },
+    {
+        id: 2,
+        name: 'European, Other',
+        alts: ['European or Other', 'European/Other', 'European / Other'],
+    },
     { id: 3, name: 'Pacific people', alts: ['Pacific peoples', 'Pacific'] },
     { id: 4, name: 'Asian', alts: ['Asian'] },
-    { id: 5, name: 'Middle Eastern, Latin American, African', alts: ['Middle Eastern, Latin American and African (MELAA)', 'Middle Eastern/Latin American/African'] },
+    {
+        id: 5,
+        name: 'Middle Eastern, Latin American, African',
+        alts: ['Middle Eastern, Latin American and African (MELAA)', 'Middle Eastern/Latin American/African'],
+    },
 ];
 
 export const AgeGroups = [

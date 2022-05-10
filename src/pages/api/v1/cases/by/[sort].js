@@ -19,7 +19,8 @@ async function by(sort) {
     const checkedAt = new Date(parsedJson.checkedAt || 0);
     if (checkedAt.getTime() > Date.now() - 600000) return parsedJson;
 
-    let list = [], cacheUpdatedAt = new Date();
+    let list = [],
+        cacheUpdatedAt = new Date();
     if (SORT_TYPES_1.includes(sort)) {
         const { updatedAt, activeBySource, allByBoard } = await getCurrentCases();
         const lists = [activeBySource, allByBoard];
@@ -37,7 +38,7 @@ async function by(sort) {
         checkedAt: new Date(),
         updatedAt: cacheUpdatedAt,
         list,
-    }
+    };
 
     saveJson(filePath, formattedJson);
     return { ...formattedJson, fromCache: false };
@@ -51,14 +52,15 @@ async function by(sort) {
  * @apiVersion 1.0.0
  * @apiUse V1SuccessResponse
  * @apiUse V1FailureResponse
- * @apiParam {String='source'|'board'|'age'|'ethnicity'|'gender'} sort The sort type. 
+ * @apiParam {String='source'|'board'|'age'|'ethnicity'|'gender'} sort The sort type.
  */
 export default async function handler(req, res) {
     return rateLimiter(req, res, () => {
         const sort = req.query?.sort;
-        if (req.method === 'GET') return by(sort)
-            .then(data => reply(req, res, data))
-            .catch(err => reply(req, res, err));
+        if (req.method === 'GET')
+            return by(sort)
+                .then((data) => reply(req, res, data))
+                .catch((err) => reply(req, res, err));
         else return reply.invalidMethod(req, res, 'GET');
     });
 }

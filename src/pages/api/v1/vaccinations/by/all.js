@@ -35,9 +35,10 @@ async function all() {
  */
 export default async function handler(req, res) {
     return rateLimiter(req, res, () => {
-        if (req.method === 'GET') return all()
-            .then(data => reply(req, res, data))
-            .catch(err => reply(req, res, err));
+        if (req.method === 'GET')
+            return all()
+                .then((data) => reply(req, res, data))
+                .catch((err) => reply(req, res, err));
         else return reply.invalidMethod(req, res, 'GET');
     });
 }

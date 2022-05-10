@@ -16,13 +16,18 @@ export function convertDate(input) {
     return i.format('YYYY-MM-DD');
 }
 
-const HH_MM_SS_A = /(\d{1,2}):(\d{1,2}):(\d{1,2})( ?[ap]m)/
+const HH_MM_SS_A = /(\d{1,2}):(\d{1,2}):(\d{1,2})( ?[ap]m)/;
 const HH_MM_SS = /(\d{1,2}):(\d{1,2}):(\d{1,2})/gi;
 const HH_MM_A = /(\d{1,2}):?(\d{1,2})?( ?[ap]m)/gi;
 const HH_MM = /(\d{1,2}):(\d{1,2})/gi;
 
 export function convertTime(input) {
-    const [hmsa, hms, hm, hma] = [input.match(HH_MM_SS_A), input.match(HH_MM_SS), input.match(HH_MM), input.match(HH_MM_A)];
+    const [hmsa, hms, hm, hma] = [
+        input.match(HH_MM_SS_A),
+        input.match(HH_MM_SS),
+        input.match(HH_MM),
+        input.match(HH_MM_A),
+    ];
     const time = hmsa ? hmsa[0] : hms ? hms[0] : hma ? hma[0] : hm ? hm[0] : null;
     if (!time) return null;
     return moment(time, ['HH:mm:ssA']).format('HH:mm:ss');
@@ -39,7 +44,7 @@ export function toNewZealandTime(date) {
 }
 
 export function formatTime(time) {
-    return moment('2000-01-01T' + time).format('hh:mm a')
+    return moment('2000-01-01T' + time).format('hh:mm a');
 }
 
 export function formatDate(date) {

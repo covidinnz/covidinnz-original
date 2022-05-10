@@ -3,7 +3,7 @@ import http from 'http';
 export class CustomError extends Error {
     constructor(code, details) {
         super(http.STATUS_CODES[code]);
-        this.code = code;   
+        this.code = code;
         this.details = details;
     }
 }
@@ -49,4 +49,4 @@ export function reply(req, res, data) {
 reply.invalidMethod = function (req, res, methods) {
     const err = new CustomError(405, 'Method must be one of: ' + methods);
     return reply(req, res, err);
-}
+};

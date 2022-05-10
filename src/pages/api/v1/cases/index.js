@@ -11,11 +11,11 @@ async function get() {
     if (checkedAt.getTime() > Date.now() - 600000) return parsedJson;
 
     const { updatedAt, summary, outcomes, activeByCount, allByBoard } = await getCurrentCases();
-    const totalBoard = allByBoard.find(b => b.board === 'Total');
+    const totalBoard = allByBoard.find((b) => b.board === 'Total');
     const activeCounts = [
-        activeByCount.find(c => c.id === 1),
-        activeByCount.find(c => c.id === 2),
-        activeByCount.find(c => c.id === -1),
+        activeByCount.find((c) => c.id === 1),
+        activeByCount.find((c) => c.id === 2),
+        activeByCount.find((c) => c.id === -1),
     ];
 
     const formattedJson = {
@@ -50,7 +50,7 @@ async function get() {
                 total: activeCounts[1].total,
                 now: activeCounts[1].now,
                 change: activeCounts[1].change,
-            }
+            },
         },
 
         outcomes,
@@ -70,9 +70,10 @@ async function get() {
  */
 export default async function handler(req, res) {
     return rateLimiter(req, res, () => {
-        if (req.method === 'GET') return get()
-            .then(data => reply(req, res, data))
-            .catch(err => reply(req, res, err));
+        if (req.method === 'GET')
+            return get()
+                .then((data) => reply(req, res, data))
+                .catch((err) => reply(req, res, err));
         else return reply.invalidMethod(req, res, 'GET');
     });
 }

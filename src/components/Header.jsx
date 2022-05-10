@@ -4,36 +4,47 @@ import { Container } from '@styles/styled';
 import { COLOURS, FONTS, SIZES } from '@constants/variables';
 
 export default function Handler({ data }) {
-    const totalBoard = data.vaccinations.by.board.find(b => b.id === -1);
+    const totalBoard = data.vaccinations.by.board.find((b) => b.id === -1);
     const first = totalBoard.partiallyPercent;
     const second = totalBoard.fullyPercent;
     const change = data.cases.current.increase;
 
-    return <Header>
-        <Container>
-            <Branding href='/'>
-                <img
-                    alt="COVID in NZ logo banner"
-                    style={{ width: '33%' }}
-                    src='/images/banner_black.png' />
-            </Branding>
+    return (
+        <Header>
+            <Container>
+                <Branding href="/">
+                    <img alt="COVID in NZ logo banner" style={{ width: '33%' }} src="/images/banner_black.png" />
+                </Branding>
 
-            <Statistics>
-                <Item>
-                    <span>{first}%</span>
-                    <span>Vaccinated<br />(first dose, 5+)</span>
-                </Item>
-                <Item>
-                    <span>{second}%</span>
-                    <span>Vaccinated<br />(second dose, 5+)</span>
-                </Item>
-                <Item>
-                    <span>{change}</span>
-                    <span>New cases<br />(past 24 hours)</span>
-                </Item>
-            </Statistics>
-        </Container>
-    </Header>
+                <Statistics>
+                    <Item>
+                        <span>{first}%</span>
+                        <span>
+                            Vaccinated
+                            <br />
+                            (first dose, 5+)
+                        </span>
+                    </Item>
+                    <Item>
+                        <span>{second}%</span>
+                        <span>
+                            Vaccinated
+                            <br />
+                            (second dose, 5+)
+                        </span>
+                    </Item>
+                    <Item>
+                        <span>{change}</span>
+                        <span>
+                            New cases
+                            <br />
+                            (past 24 hours)
+                        </span>
+                    </Item>
+                </Statistics>
+            </Container>
+        </Header>
+    );
 }
 
 const Header = styled.header`

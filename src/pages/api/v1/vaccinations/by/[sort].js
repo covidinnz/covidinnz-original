@@ -9,15 +9,15 @@ const SORT_TYPES_1 = ['ethnicity', 'board'];
 
 async function by(sort) {
     sort = sort.toLowerCase();
-    if (!SORT_TYPES_1.includes(sort))
-        throw new CustomError(400, 'Parameter sort is invalid');
+    if (!SORT_TYPES_1.includes(sort)) throw new CustomError(400, 'Parameter sort is invalid');
 
     const filePath = path.resolve(CACHE_FOLDER, `by-${sort}.json`);
     const parsedJson = await getJson(filePath);
     const checkedAt = new Date(parsedJson.checkedAt || 0);
     if (checkedAt.getTime() > Date.now() - 600000) return parsedJson;
 
-    let list = [], cacheUpdatedAt = new Date();
+    let list = [],
+        cacheUpdatedAt = new Date();
     if (SORT_TYPES_1.includes(sort)) {
         const { updatedAt, allByEthnicity, allByBoard } = await getVaccineData();
         const lists = [allByEthnicity, allByBoard];
@@ -36,7 +36,6 @@ async function by(sort) {
     return { ...formattedJson, fromCache: false };
 }
 
-
 /**
  * @api {GET} /v1/vaccinations/by/:sort Vaccinations Sorted
  * @apiName SingleSortedVaccinations
@@ -50,9 +49,10 @@ async function by(sort) {
 export default async function handler(req, res) {
     return rateLimiter(req, res, () => {
         const sort = req.query?.sort;
-        if (req.method === 'GET') return by(sort)
-            .then(data => reply(req, res, data))
-            .catch(err => reply(req, res, err));
+        if (req.method === 'GET')
+            return by(sort)
+                .then((data) => reply(req, res, data))
+                .catch((err) => reply(req, res, err));
         else return reply.invalidMethod(req, res, 'GET');
     });
 }

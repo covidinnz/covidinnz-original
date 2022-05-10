@@ -16,18 +16,19 @@ export default function _App({ Component, pageProps }) {
     const [tracer, setTracer] = useState(null);
 
     const fetchData = async () => {
-        const get = uri => fetch(uri)
-            .then(res => res.json())
-            .then(json => json.data);
+        const get = (uri) =>
+            fetch(uri)
+                .then((res) => res.json())
+                .then((json) => json.data);
         return Promise.all([
-            get('/api/v1/cases').then(c => setCases(s => ({ ...s, ...c }))),
-            get('/api/v1/cases/by/all').then(ca => setCases(s => ({ ...s, by: ca }))),
-            get('/api/v1/vaccinations').then(v => setVaccinations(s => ({ ...s, ...v }))),
-            get('/api/v1/vaccinations/by/all').then(va => setVaccinations(s => ({ ...s, by: va }))),
-            get('/api/v1/situation').then(t => setSituation(s => ({ ...s, ...t }))),
-            get('/api/v1/tracer/7').then(t => setTracer(s => ({ ...s, ...t })))
+            get('/api/v1/cases').then((c) => setCases((s) => ({ ...s, ...c }))),
+            get('/api/v1/cases/by/all').then((ca) => setCases((s) => ({ ...s, by: ca }))),
+            get('/api/v1/vaccinations').then((v) => setVaccinations((s) => ({ ...s, ...v }))),
+            get('/api/v1/vaccinations/by/all').then((va) => setVaccinations((s) => ({ ...s, by: va }))),
+            get('/api/v1/situation').then((t) => setSituation((s) => ({ ...s, ...t }))),
+            get('/api/v1/tracer/7').then((t) => setTracer((s) => ({ ...s, ...t }))),
         ]);
-    }
+    };
 
     useEffect(() => {
         const scroll = () => window.scrollTo(0, 0);
@@ -35,27 +36,33 @@ export default function _App({ Component, pageProps }) {
         fetchData().then(() => setIsLoading(false));
     }, []);
 
-    return <>
-        <Head>
-            <title>COVID in New Zealand</title>
-            <link rel='shortcut icon' href='/images/logo_yellow.png' />
-        </Head>
-        
-        <Script
-            async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5722227635911083"
-            crossorigin="anonymous" />
+    return (
+        <>
+            <Head>
+                <title>COVID in New Zealand</title>
+                <link rel="shortcut icon" href="/images/logo_yellow.png" />
+            </Head>
 
-        {isLoading
-            ? <h1>Loading...</h1>
-            : <>
-                <Header data={{ cases, vaccinations }} />
-                <NavigationBar />
-                <Page>
-                    <Content style={{ minHeight: '100vh' }}>
-                        <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />
-                    </Content>
-                </Page>
-                <Footer />
-            </>}
-    </>
+            <Script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5722227635911083"
+                crossorigin="anonymous"
+            />
+
+            {isLoading ? (
+                <h1>Loading...</h1>
+            ) : (
+                <>
+                    <Header data={{ cases, vaccinations }} />
+                    <NavigationBar />
+                    <Page>
+                        <Content style={{ minHeight: '100vh' }}>
+                            <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />
+                        </Content>
+                    </Page>
+                    <Footer />
+                </>
+            )}
+        </>
+    );
 }

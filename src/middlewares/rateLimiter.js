@@ -1,5 +1,5 @@
 import NextCors from 'nextjs-cors';
-import { failure } from "@functions/apiHelper";
+import { failure } from '@functions/apiHelper';
 
 const interval = 60000;
 const limit = 60;

@@ -2,20 +2,21 @@ import fetch from 'node-fetch';
 import papa from 'papaparse';
 import cheerio from 'cheerio';
 
-const clean = s => +s.replace(/\*|,|%/g, '') ?? null;
+const clean = (s) => +s.replace(/\*|,|%/g, '') ?? null;
 import { parseDate } from '@functions/parseDate';
-const SOURCE_URL = 'https://www.health.govt.nz/our-work' +
+const SOURCE_URL =
+    'https://www.health.govt.nz/our-work' +
     '/diseases-and-conditions/covid-19-novel-coronavirus' +
     '/covid-19-data-and-statistics/covid-19-nz-covid-tracer-app-data';
 
 export default async function () {
-    const body = await fetch(SOURCE_URL).then(res => res.text());
+    const body = await fetch(SOURCE_URL).then((res) => res.text());
     const $ = cheerio.load(body);
-    const csvUrl = 'https://www.health.govt.nz' + Array.from($('a'))
-        .find(a => a.attribs.href?.includes('csv')).attribs.href;
+    const csvUrl =
+        'https://www.health.govt.nz' + Array.from($('a')).find((a) => a.attribs.href?.includes('csv')).attribs.href;
 
-    const csvData = await fetch(csvUrl).then(res => res.text());
-    const parsedCsv = await papa.parse(csvData).data.filter(a => !!a[0]);
+    const csvData = await fetch(csvUrl).then((res) => res.text());
+    const parsedCsv = await papa.parse(csvData).data.filter((a) => !!a[0]);
 
     return {
         checkedAt: new Date(),

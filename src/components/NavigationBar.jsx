@@ -5,13 +5,15 @@ import { COLOURS, FONTS } from '@constants/variables';
 import NextLink from 'next/link';
 
 export default function NavigationBar() {
-    return <Nav>
-        <Container>
-            <Link href='/'>Home</Link>
-            <Link href='/cases'>Cases</Link>
-            <Link href='/vaccinations'>Vaccinations</Link>
-        </Container>
-    </Nav>
+    return (
+        <Nav>
+            <Container>
+                <Link href="/">Home</Link>
+                <Link href="/cases">Cases</Link>
+                <Link href="/vaccinations">Vaccinations</Link>
+            </Container>
+        </Nav>
+    );
 }
 
 const Nav = styled.nav`
@@ -35,12 +37,12 @@ const Nav = styled.nav`
             color: ${COLOURS.WHITE};
             transition: 0.3s ease-in-out;
         }
-    
+
         a:hover {
             background-color: ${COLOURS.GREY};
             transition: 0.3s ease-in-out;
         }
-    
+
         a:active active {
             background-color: ${COLOURS.GREY};
             transition: 0.3s ease-in-out;

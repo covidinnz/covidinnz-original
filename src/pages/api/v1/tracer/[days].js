@@ -47,9 +47,10 @@ function formatResponse(data, days) {
 export default async function handler(req, res) {
     return rateLimiter(req, res, () => {
         const days = req.query?.days;
-        if (req.method === 'GET') return get(+days)
-            .then(data => reply(req, res, data))
-            .catch(err => reply(req, res, err));
+        if (req.method === 'GET')
+            return get(+days)
+                .then((data) => reply(req, res, data))
+                .catch((err) => reply(req, res, err));
         else return reply.invalidMethod(req, res, 'GET');
     });
 }

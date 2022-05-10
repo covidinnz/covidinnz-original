@@ -22,26 +22,29 @@ export default function _Table({ type, ...props }) {
         }
     }
 
-    return <TableContainer
-        component={Paper}
-        sx={{
-            width: '100%',
-            overflowX: 'none',
-            '& .MuiTableRow-root:nth-child(even)': {
-                backgroundColor: COLOURS.YELLOW,
-            },
-            '& .MuiTableRow-root:nth-child(odd)': {
-                backgroundColor: COLOURS.WHITE,
-            },
-        }}
-    >
-        <SwitchTable param={type} />
-    </TableContainer>
+    return (
+        <TableContainer
+            component={Paper}
+            sx={{
+                width: '100%',
+                overflowX: 'none',
+                '& .MuiTableRow-root:nth-child(even)': {
+                    backgroundColor: COLOURS.YELLOW,
+                },
+                '& .MuiTableRow-root:nth-child(odd)': {
+                    backgroundColor: COLOURS.WHITE,
+                },
+            }}
+        >
+            <SwitchTable param={type} />
+        </TableContainer>
+    );
 }
 
 function descendingComparator(a, b, orderBy) {
-    let c = a[orderBy], d = b[orderBy];
-    const to = e => Number(`${e}`.split(' ')[0].replace(/,|%/, ''));
+    let c = a[orderBy],
+        d = b[orderBy];
+    const to = (e) => Number(`${e}`.split(' ')[0].replace(/,|%/, ''));
     if (to(c) || to(d)) {
         c = to(c);
         d = to(d);
@@ -60,9 +63,7 @@ function getComparator(order, orderBy) {
         : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function TopTable({
-    defaultOrderBy, defaultOrder, headers, cells, searchProperty
-}) {
+function TopTable({ defaultOrderBy, defaultOrder, headers, cells, searchProperty }) {
     const [orderBy, setOrderBy] = useState(defaultOrderBy);
     const [order, setOrder] = useState(defaultOrder || 'desc');
     const [rows, setRows] = useState(cells);
@@ -75,8 +76,7 @@ function TopTable({
     }
 
     function requestSearch(query) {
-        const filtered = cells.filter(row => row[searchProperty].toLowerCase()
-            .includes(query.toLowerCase()));
+        const filtered = cells.filter((row) => row[searchProperty].toLowerCase().includes(query.toLowerCase()));
         setRows(filtered);
     }
 
@@ -85,64 +85,88 @@ function TopTable({
         requestSearch(searched);
     }
 
-    return <>{searchProperty && <SearchBar
-        placeholder='Search'
-        value={searched}
-        onChange={query => requestSearch(query)}
-        onCancel={() => cancelSearch()}
-    />}
+    return (
+        <>
+            {searchProperty && (
+                <SearchBar
+                    placeholder="Search"
+                    value={searched}
+                    onChange={(query) => requestSearch(query)}
+                    onCancel={() => cancelSearch()}
+                />
+            )}
 
-        <Table size='small'>
-            <TableHead>
-                <TableRow>
-                    {headers.map(({ field, headerName, flex, type, sortable }) =>
-                        <TableCell
-                            key={field}
-                            align={type === 'number' ? 'right' : 'left'}
-                            style={{ flex: flex }}
-                            sortDirection={orderBy === field ? order : false}
-                        >
-                            {sortable ?
-                                <TableSortLabel
-                                    active={orderBy === field}
-                                    direction={orderBy === field ? order : 'asc'}
-                                    onClick={event => requestSort(event, field)}
-                                >
-                                    {headerName}
-                                </TableSortLabel> :
-                                headerName}
-                        </TableCell>
-                    )}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {rows.slice()
-                    .sort(getComparator(order, orderBy))
-                    .map(({ id, ...row }) => {
-                        return <TableRow key={id}>
-                            {headers.map(({ flex, type, field }, index) => {
-                                const align = type === 'number' ? 'right' : 'left';
-                                return <TableCell key={index} align={align} style={{ flex: flex }}>{row[field]}</TableCell>
-                            })}
-                        </TableRow>
-                    })}
-            </TableBody>
-        </Table>
-    </>
+            <Table size="small">
+                <TableHead>
+                    <TableRow>
+                        {headers.map(({ field, headerName, flex, type, sortable }) => (
+                            <TableCell
+                                key={field}
+                                align={type === 'number' ? 'right' : 'left'}
+                                style={{ flex: flex }}
+                                sortDirection={orderBy === field ? order : false}
+                            >
+                                {sortable ? (
+                                    <TableSortLabel
+                                        active={orderBy === field}
+                                        direction={orderBy === field ? order : 'asc'}
+                                        onClick={(event) => requestSort(event, field)}
+                                    >
+                                        {headerName}
+                                    </TableSortLabel>
+                                ) : (
+                                    headerName
+                                )}
+                            </TableCell>
+                        ))}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows
+                        .slice()
+                        .sort(getComparator(order, orderBy))
+                        .map(({ id, ...row }) => {
+                            return (
+                                <TableRow key={id}>
+                                    {headers.map(({ flex, type, field }, index) => {
+                                        const align = type === 'number' ? 'right' : 'left';
+                                        return (
+                                            <TableCell key={index} align={align} style={{ flex: flex }}>
+                                                {row[field]}
+                                            </TableCell>
+                                        );
+                                    })}
+                                </TableRow>
+                            );
+                        })}
+                </TableBody>
+            </Table>
+        </>
+    );
 }
 
 function LeftTable({ headers, cells }) {
-    return <Table size='small'>
-        <TableBody>
-            {headers.map(({ field, headerName, flex, type }, index) => {
-                const align = type === 'number' ? 'right' : 'left';
-                return <TableRow key={index}>
-                    <TableCell key={index} style={{ flex: flex }}>{headerName}</TableCell>
-                    {cells.map(({ id, ...row }) => {
-                        return <TableCell key={id} align={align} style={{ flex: flex }}>{row[field]}</TableCell>
-                    })}
-                </TableRow>
-            })}
-        </TableBody>
-    </Table>
+    return (
+        <Table size="small">
+            <TableBody>
+                {headers.map(({ field, headerName, flex, type }, index) => {
+                    const align = type === 'number' ? 'right' : 'left';
+                    return (
+                        <TableRow key={index}>
+                            <TableCell key={index} style={{ flex: flex }}>
+                                {headerName}
+                            </TableCell>
+                            {cells.map(({ id, ...row }) => {
+                                return (
+                                    <TableCell key={id} align={align} style={{ flex: flex }}>
+                                        {row[field]}
+                                    </TableCell>
+                                );
+                            })}
+                        </TableRow>
+                    );
+                })}
+            </TableBody>
+        </Table>
+    );
 }

@@ -3,22 +3,35 @@ import styled from '@emotion/styled';
 import { COLOURS, SIZES, FONTS } from '@constants/variables';
 
 export default function _Footer() {
-    return <Footer>
-        <Container>
-            <Item>
-                Follow COVID in NZ on <a rel="noreferrer" href='https://twitter.com/covidinnz' target='_blank'>Twitter</a>.<br />
-                <a rel="noreferrer" href='/docs/index.html' target='_blank'>COVID in New Zealand API</a>.
-            </Item>
-            <Item>
-                Data displayed on this site is sourced from the<br />
-                <a rel="noreferrer" href='https://health.govt.nz/' target='_blank'>Ministry of Health</a>.
-            </Item>
-            <Item>
-                Site design and logo<br />
-                © 2021 COVID in New Zealand
-            </Item>
-        </Container>
-    </Footer>
+    return (
+        <Footer>
+            <Container>
+                <Item>
+                    Follow COVID in NZ on{' '}
+                    <a rel="noreferrer" href="https://twitter.com/covidinnz" target="_blank">
+                        Twitter
+                    </a>
+                    .<br />
+                    <a rel="noreferrer" href="/docs/index.html" target="_blank">
+                        COVID in New Zealand API
+                    </a>
+                    .
+                </Item>
+                <Item>
+                    Data displayed on this site is sourced from the
+                    <br />
+                    <a rel="noreferrer" href="https://health.govt.nz/" target="_blank">
+                        Ministry of Health
+                    </a>
+                    .
+                </Item>
+                <Item>
+                    Site design and logo
+                    <br />© 2021 COVID in New Zealand
+                </Item>
+            </Container>
+        </Footer>
+    );
 }
 
 const Footer = styled.footer`

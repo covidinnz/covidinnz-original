@@ -24,7 +24,7 @@ export const COLOURS = {
     DARK: '#343A40',
 
     addAlpha: function (hex, alpha) {
-        const rgb = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+        const rgb = hex.match(/\w\w/g).map((x) => parseInt(x, 16));
         return `rgba(${rgb},${alpha})`;
     },
 
