@@ -25,8 +25,7 @@ export default function Vaccinations({ data }) {
                                 ...b,
                                 partially: `${b.partially} (${b.partiallyPercent}%)`,
                                 fully: `${b.fully} (${b.fullyPercent}%)`,
-                            }))
-                            .filter((b) => b.id !== -1)}
+                            }))}
                     />
                     <caption>This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}</caption>
                 </Item>
@@ -44,7 +43,7 @@ export default function Vaccinations({ data }) {
                             { field: 'fully', headerName: 'Second Dose', type: 'number', flex: 1, sortable: true },
                             { field: 'booster', headerName: 'Booster Shot', type: 'number', flex: 1, sortable: true },
                         ]}
-                        cells={stringifyProperties(data.vaccinations.by.ethnicity).filter((e) => e.id !== -1)}
+                        cells={stringifyProperties(data.vaccinations.by.ethnicity).filter((e) => e.id !== '-1')}
                     />
                     <caption>
                         This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}

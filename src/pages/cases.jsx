@@ -21,12 +21,10 @@ export default function Cases({ data }) {
                             { field: 'deceased', headerName: 'Deceased', type: 'number', flex: 1, sortable: true },
                             { field: 'total', headerName: 'Total', type: 'number', flex: 1, sortable: true },
                         ]}
-                        cells={
-                            stringifyProperties(data.cases.by.board).map((b) => ({
-                                ...b,
-                                active: b.increase > 0 ? `${b.active} (+${b.increase})` : b.active,
-                            }))
-                        }
+                        cells={stringifyProperties(data.cases.by.board).map((b) => ({
+                            ...b,
+                            active: b.increase > 0 ? `${b.active} (+${b.increase})` : b.active,
+                        }))}
                     />
                     <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
                 </Item>
@@ -52,7 +50,7 @@ export default function Cases({ data }) {
                                 { field: 'deceased', headerName: 'Deceased', type: 'number', flex: 1, sortable: true },
                                 { field: 'total', headerName: 'Total', type: 'number', flex: 1, sortable: true },
                             ]}
-                            cells={stringifyProperties(data.cases.by.age)}
+                            cells={stringifyProperties(data.cases.by.age).filter((a) => a.id !== '-1')}
                         />
                         <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
 
@@ -72,7 +70,7 @@ export default function Cases({ data }) {
                                 { field: 'deceased', headerName: 'Deceased', type: 'number', flex: 1, sortable: true },
                                 { field: 'total', headerName: 'Total', type: 'number', flex: 1, sortable: true },
                             ]}
-                            cells={stringifyProperties(data.cases.by.ethnicity)}
+                            cells={stringifyProperties(data.cases.by.ethnicity).filter((e) => e.id !== '-1')}
                         />
                         <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
 
@@ -92,7 +90,7 @@ export default function Cases({ data }) {
                                 { field: 'deceased', headerName: 'Deceased', type: 'number', flex: 1, sortable: true },
                                 { field: 'total', headerName: 'Total', type: 'number', flex: 1, sortable: true },
                             ]}
-                            cells={stringifyProperties(data.cases.by.gender)}
+                            cells={stringifyProperties(data.cases.by.gender).filter((g) => g.id !== '-1')}
                         />
                     </Item>
                 </Column>
