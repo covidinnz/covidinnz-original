@@ -9,31 +9,42 @@ import Footer from '@components/Footer';
 import { Page, Content } from '@styles/styled';
 
 export default function _App({ Component, pageProps }) {
-    const [isLoading, setIsLoading] = useState(true);
+    const [message, setMessage] = useState('Loading...');
+
     const [cases, setCases] = useState(null);
     const [vaccinations, setVaccinations] = useState(null);
     const [situation, setSituation] = useState(null);
     const [tracer, setTracer] = useState(null);
 
+    const get = (url) =>
+        fetch(url)
+            .then((res) => res.json())
+            .then((json) => {
+                console.log(json);
+                if (json.success === true) return json.data;
+                else throw new Error(json.error.message);
+            });
+
     const fetchData = async () => {
-        const get = (uri) =>
-            fetch(uri)
-                .then((res) => res.json())
-                .then((json) => json.data);
-        return Promise.all([
-            get('/api/v1/cases').then((c) => setCases((s) => ({ ...s, ...c }))),
-            get('/api/v1/cases/by/all').then((ca) => setCases((s) => ({ ...s, by: ca }))),
-            get('/api/v1/vaccinations').then((v) => setVaccinations((s) => ({ ...s, ...v }))),
-            get('/api/v1/vaccinations/by/all').then((va) => setVaccinations((s) => ({ ...s, by: va }))),
-            get('/api/v1/situation').then((t) => setSituation((s) => ({ ...s, ...t }))),
-            get('/api/v1/tracer/7').then((t) => setTracer((s) => ({ ...s, ...t }))),
-        ]);
+        try {
+            await get('/api/v1/cases').then((c) => setCases((s) => ({ ...s, ...c })));
+            await get('/api/v1/cases/by/all').then((ca) => setCases((s) => ({ ...s, by: ca })));
+            await get('/api/v1/vaccinations').then((v) => setVaccinations((s) => ({ ...s, ...v })));
+            await get('/api/v1/vaccinations/by/all').then((va) => setVaccinations((s) => ({ ...s, by: va })));
+            await get('/api/v1/situation').then((t) => setSituation((s) => ({ ...s, ...t })));
+            await get('/api/v1/tracer/7').then((t) => setTracer((s) => ({ ...s, ...t })));
+            setMessage('');
+        } catch (error) {
+            console.error(error);
+            setMessage(error.message);
+        }
     };
 
     useEffect(() => {
         const scroll = () => window.scrollTo(0, 0);
         Router.events.on('routeChangeComplete', scroll);
-        fetchData().then(() => setIsLoading(false));
+        fetchData();
+        return () => setMessage('Failed');
     }, []);
 
     return (
@@ -49,8 +60,8 @@ export default function _App({ Component, pageProps }) {
                 crossorigin="anonymous"
             />
 
-            {isLoading ? (
-                <h1>Loading...</h1>
+            {message !== '' ? (
+                <>{message}</>
             ) : (
                 <>
                     <Header data={{ cases, vaccinations }} />
