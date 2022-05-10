@@ -49,7 +49,7 @@ export default function Vaccinations({ data }) {
                     <caption>
                         This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}
                         <br />
-                        Booster shots are only to those 18 and over
+                        Booster shots are only available to those 18 and over
                     </caption>
                 </Item>
             </Content>
