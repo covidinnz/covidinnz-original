@@ -8,14 +8,19 @@
     "private": true,
     "packageManager": "yarn@3.2.0",
     "scripts": {
+        "clean": "rm -rf template .next public/docs public/cache",
+        "lint": "next lint",
+        "format": "prettier --write '**/*.{js,jsx,ts,tsx,json,md,yml,yaml}'",
+        "build": "next build",
         "serve": "next start -p 3003",
         "start": "pm2 start npm --name=covidinnz -- run serve",
         "restart": "pm2 restart covidinnz",
-        "stop": "pm2 stop covidinnz-client",
+        "stop": "pm2 stop covidinnz",
         "dev": "next dev",
-        "template": "rm -rf template && git clone https://github.com/covidinnz/apidoc-template template",
-        "docs": "apidoc -i src/ -o public/docs/ -t template/",
-        "pull": "git reset --hard && git pull"
+        "pull": "git reset --hard && git pull && yarn && yarn build && yarn restart",
+        "update:template": "rm -rf template && git clone https://github.com/covidinnz/apidoc-template template",
+        "update:docs": "apidoc -i src/ -o public/docs/ -t template/",
+        "update:nginx": "cp nginx.conf /etc/nginx/sites-enabled/covidinnz.com"
     },
     "dependencies": {
         "@emotion/react": "^11.9.0",
