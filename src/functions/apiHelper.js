@@ -1,20 +1,20 @@
 import http from 'http';
 
 export class CustomError extends Error {
-    constructor(code, details) {
-        super(http.STATUS_CODES[code]);
-        this.code = code;
+    constructor(status, details) {
+        super(http.STATUS_CODES[status]);
+        this.status = status;
         this.details = details;
     }
 }
 
 export function success(data) {
-    return { sucess: true, data };
+    return { success: true, data };
 }
 
-export function failure(code, details) {
-    const error = { code, message: http.STATUS_CODES[code], details };
-    return { sucess: false, error };
+export function failure(status, details) {
+    const error = { status, message: http.STATUS_CODES[status], details };
+    return { success: false, error };
 }
 
 export function logger(req) {
@@ -34,16 +34,16 @@ export function error(err, req) {
 }
 
 export function reply(req, res, data) {
-    let [code, message] = [500, failure(500, 'An internal server error has occurred')];
-    if (data instanceof CustomError) [code, message] = [data.code, failure(data.code, data.details)];
-    else if (!(data instanceof Error)) [code, message] = [200, success(data)];
+    let [status, message] = [500, failure(500, 'An internal server error has occurred')];
+    if (data instanceof CustomError) [status, message] = [data.status, failure(data.status, data.details)];
+    else if (!(data instanceof Error)) [status, message] = [200, success(data)];
 
     if (data instanceof Error) error(data, req);
     else logger(req);
 
     let method = 'json';
     data = message;
-    return res.status(code)[method](data);
+    return res.status(status)[method](data);
 }
 
 reply.invalidMethod = function (req, res, methods) {
