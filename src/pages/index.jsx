@@ -19,46 +19,64 @@ function formatVaccinationChartData(data) {
     ];
 }
 
+function formatCasesChartData(data) {
+    const activeCount = data.cases.active;
+    const recoveredCount = data.cases.recovered;
+    const deceasedCount = data.cases.deceased;
+
+    return [
+        { label: 'Active', value: activeCount, colour: COLOURS.YELLOW },
+        { label: 'Recovered', value: recoveredCount, colour: COLOURS.GREEN },
+        { label: 'Deceased', value: deceasedCount, colour: COLOURS.RED },
+    ];
+}
+
 export default function Home({ data }) {
     return (
         <Page>
             <Content>
-                <Column>
-                    <Row>
-                        <Item>
-                            <h1>Summary</h1>
-                            <p style={{ whiteSpace: 'pre-wrap' }}>{data.situation.summaryText}</p>
-                        </Item>
-                        <Item>
-                            <h1>Cases</h1>
-                            <h2>Nationwide status</h2>
-                            <Table
-                                type="left"
-                                headers={[
-                                    { field: 'increase', headerName: 'New', type: 'number', flex: 1 },
-                                    { field: 'active', headerName: 'Total Active', type: 'number', flex: 1 },
-                                    { field: 'fromCommunity', headerName: 'In the Community', type: 'number', flex: 1 },
-                                    { field: 'fromBorder', headerName: 'At the Border', type: 'number', flex: 1 },
-                                    {
-                                        field: 'underInvestigation',
-                                        headerName: 'Under Investigation or Other',
-                                        type: 'number',
-                                        flex: 1,
-                                    },
-                                ]}
-                                cells={[stringifyProperties({ ...data.cases, ...data.cases.current })]}
-                            />
-                            <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
-                        </Item>
-                    </Row>
-                    <Row>
-                        <Item>
-                            <h1>Vaccinations (5+)</h1>
-                            <Chart type="doughnut" data={formatVaccinationChartData(data)} />
-                            <caption>This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}</caption>
-                        </Item>
-                    </Row>
-                </Column>
+                <Row>
+                    <Item>
+                        <h1>Summary</h1>
+                        <p style={{ whiteSpace: 'pre-wrap' }}>{data.situation.summaryText}</p>
+                    </Item>
+
+                    <Item>
+                        <h1>Active Cases</h1>
+                        <h2>Nationwide status</h2>
+                        <Table
+                            type="left"
+                            headers={[
+                                { field: 'increase', headerName: 'New', type: 'number', flex: 1 },
+                                { field: 'active', headerName: 'Total Active', type: 'number', flex: 1 },
+                                { field: 'fromCommunity', headerName: 'In the Community', type: 'number', flex: 1 },
+                                { field: 'fromBorder', headerName: 'At the Border', type: 'number', flex: 1 },
+                                {
+                                    field: 'underInvestigation',
+                                    headerName: 'Under Investigation or Other',
+                                    type: 'number',
+                                    flex: 1,
+                                },
+                            ]}
+                            cells={[stringifyProperties({ ...data.cases, ...data.cases.current })]}
+                        />
+                        <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
+                    </Item>
+                </Row>
+
+                <Row>
+                    <Item>
+                        <h1>Vaccinations (5+)</h1>
+                        <Chart type="doughnut" data={formatVaccinationChartData(data)} />
+                        <caption>This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}</caption>
+                    </Item>
+
+                    <Item>
+                        <h1>All Cases</h1>
+                        <Chart type="doughnut" data={formatCasesChartData(data)} />
+                        <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
+                    </Item>
+                </Row>
             </Content>
         </Page>
     );
