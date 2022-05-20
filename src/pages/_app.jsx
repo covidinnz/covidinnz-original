@@ -7,6 +7,7 @@ import Header from '@components/Header';
 import NavigationBar from '@components/NavigationBar';
 import Footer from '@components/Footer';
 import { Page, Content } from '@styles/styled';
+import styled from '@emotion/styled';
 
 export default function _App({ Component, pageProps }) {
     const [message, setMessage] = useState('Loading...');
@@ -60,20 +61,22 @@ export default function _App({ Component, pageProps }) {
                 crossorigin="anonymous"
             />
 
-            {message !== '' ? (
-                <>{message}</>
-            ) : (
-                <>
-                    <Header data={{ cases, vaccinations }} />
-                    <NavigationBar />
-                    <Page>
-                        <Content style={{ minHeight: '100vh' }}>
-                            <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />
-                        </Content>
-                    </Page>
-                    <Footer />
-                </>
-            )}
+            <Header data={{ cases, vaccinations  }} />
+            <NavigationBar disabled={message !== ''} />
+            <Page>
+                <Content style={{ minHeight: '100vh' }}>
+                    {message !== '' ? <Span>{message}</Span> : <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />}
+                </Content> 
+            </Page>
+            <Footer />
         </>
     );
 }
+
+const Span = styled.span`
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: table;
+    margin: 0 auto;
+`;

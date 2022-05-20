@@ -4,13 +4,14 @@ import { Container } from '@styles/styled';
 import { COLOURS, FONTS } from '@constants/variables';
 import NextLink from 'next/link';
 
-export default function NavigationBar() {
+export default function NavigationBar({ disabled }) {
+    const makeHref = (href) => disabled ? '#' : href;
     return (
         <Nav>
             <Container>
-                <Link href="/">Home</Link>
-                <Link href="/cases">Cases</Link>
-                <Link href="/vaccinations">Vaccinations</Link>
+                <Link href={makeHref('/')}>Home</Link>
+                <Link href={makeHref("/cases")}>Cases</Link>
+                <Link href={makeHref("/vaccinations")}>Vaccinations</Link>
             </Container>
         </Nav>
     );
