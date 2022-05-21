@@ -20,12 +20,11 @@ export default function Vaccinations({ data }) {
                             { field: 'partially', headerName: 'Partically', type: 'number', flex: 1, sortable: true },
                             { field: 'fully', headerName: 'Fully', type: 'number', flex: 1, sortable: true },
                         ]}
-                        cells={stringifyProperties(data.vaccinations.by.board)
-                            .map((b) => ({
-                                ...b,
-                                partially: `${b.partially} (${b.partiallyPercent}%)`,
-                                fully: `${b.fully} (${b.fullyPercent}%)`,
-                            }))}
+                        cells={stringifyProperties(data.vaccinations.by.board).map((b) => ({
+                            ...b,
+                            partially: `${b.partially} (${b.partiallyPercent}%)`,
+                            fully: `${b.fully} (${b.fullyPercent}%)`,
+                        }))}
                     />
                     <caption>This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}</caption>
                 </Item>

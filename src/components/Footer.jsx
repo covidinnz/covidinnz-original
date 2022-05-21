@@ -15,6 +15,11 @@ export default function _Footer() {
                     <a rel="noreferrer" href="/docs/index.html" target="_blank">
                         COVID in New Zealand API
                     </a>
+                    .<br />
+                    Created by{' '}
+                    <a rel="noreferrer" href="https://apteryx.xyz/" target="_blank">
+                        Apteryx
+                    </a>
                     .
                 </Item>
                 <Item>

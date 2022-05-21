@@ -63,12 +63,16 @@ export default function _App({ Component, pageProps }) {
                 crossorigin="anonymous"
             />
 
-            <Header data={{ cases, vaccinations  }} />
+            <Header data={{ cases, vaccinations }} />
             <NavigationBar disabled={message !== ''} />
             <Page>
                 <Content style={{ minHeight: '100vh' }}>
-                    {message !== '' ? <Span>{message}</Span> : <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />}
-                </Content> 
+                    {message !== '' ? (
+                        <Span>{message}</Span>
+                    ) : (
+                        <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />
+                    )}
+                </Content>
             </Page>
             <Footer />
         </>
