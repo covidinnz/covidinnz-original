@@ -28,12 +28,14 @@ export default function _App({ Component, pageProps }) {
 
     const fetchData = async () => {
         try {
-            await get('/api/v1/cases').then((c) => setCases((s) => ({ ...s, ...c })));
-            await get('/api/v1/cases/by/all').then((ca) => setCases((s) => ({ ...s, by: ca })));
-            await get('/api/v1/vaccinations').then((v) => setVaccinations((s) => ({ ...s, ...v })));
-            await get('/api/v1/vaccinations/by/all').then((va) => setVaccinations((s) => ({ ...s, by: va })));
-            await get('/api/v1/situation').then((t) => setSituation((s) => ({ ...s, ...t })));
-            await get('/api/v1/tracer/7').then((t) => setTracer((s) => ({ ...s, ...t })));
+            await Promise.all([
+                get('/api/v1/cases').then((c) => setCases((s) => ({ ...s, ...c }))),
+                get('/api/v1/cases/by/all').then((ca) => setCases((s) => ({ ...s, by: ca }))),
+                get('/api/v1/vaccinations').then((v) => setVaccinations((s) => ({ ...s, ...v }))),
+                get('/api/v1/vaccinations/by/all').then((va) => setVaccinations((s) => ({ ...s, by: va }))),
+                get('/api/v1/situation').then((t) => setSituation((s) => ({ ...s, ...t }))),
+                get('/api/v1/tracer/7').then((t) => setTracer((s) => ({ ...s, ...t }))),
+            ]);
             setMessage('');
         } catch (error) {
             console.error(error);
