@@ -59,9 +59,9 @@ export function combineBoards(twelvePlus, fiveToEleven) {
             },
 
             partially: tp.partially + fe.partially,
-            partiallyPercent: (tp.partiallyPercent + fe.partiallyPercent) / 2,
+            partiallyPercent: Number.parseFloat(((tp.partiallyPercent + fe.partiallyPercent) / 2).toFixed(2)),
             fully: tp.fully + fe.fully,
-            fullyPercent: (tp.fullyPercent + fe.fullyPercent) / 2,
+            fullyPercent: Number.parseFloat(((tp.fullyPercent + fe.fullyPercent) / 2).toFixed(2)),
             booster: tp.booster,
             population: tp.population + fe.population,
         };
