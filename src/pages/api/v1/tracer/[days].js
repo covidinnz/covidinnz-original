@@ -1,7 +1,7 @@
 import path from 'path';
 import getTracerAppData from '@functions/sources/tracerAppData';
 import { getJson, saveJson } from '@functions/cacheHelper';
-import { reply, CustomError } from '@functions/apiHelper';
+import { reply, CustomError, failure } from '@functions/apiHelper';
 import rateLimiter from '@middlewares/rateLimiter';
 const CACHE_FILE = path.resolve('public/cache/tracer/get.json');
 
@@ -36,21 +36,26 @@ function formatResponse(data, days) {
 /**
  * @api {GET} /v1/tracer/:days Tracer App Data
  * @apiName TracerData
- * @apiDescription Get the latest stats for the New Zealand COVID-19 Tracer App.
+ * @apiDescription The COVID-19 Tracer App is no longer used,
+ * therefore this endpoint is no longer available.
  * @apiGroup Tracer
  * @apiVersion 1.0.0
  * @apiUse V1SuccessResponse
  * @apiUse V1FailureResponse
- * @apiParam {Number} days The number of past days to fetch.
- * For example, 7 will get the last 7 days. -1 will get all possible data.
+ * @apiParam {Number} days The COVID-19 Tracer App is no longer used,
+ * therefore this endpoint is no longer available.
+ * @apiDeprecated
  */
 export default async function handler(req, res) {
     return rateLimiter(req, res, () => {
         const days = req.query?.days;
-        if (req.method === 'GET')
-            return get(+days)
-                .then((data) => reply(req, res, data))
-                .catch((err) => reply(req, res, err));
+        if (req.method === 'GET') {
+            const err = new CustomError(410, 'Tracer endpoints have been deprecated.');
+            return reply(req, res, err);
+        }
+        // return get(+days)
+        //     .then((data) => reply(req, res, data))
+        //     .catch((err) => reply(req, res, err));
         else return reply.invalidMethod(req, res, 'GET');
     });
 }

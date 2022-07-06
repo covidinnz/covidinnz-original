@@ -34,7 +34,6 @@ export default function _App({ Component, pageProps }) {
                 get('/api/v1/vaccinations').then((v) => setVaccinations((s) => ({ ...s, ...v }))),
                 get('/api/v1/vaccinations/by/all').then((va) => setVaccinations((s) => ({ ...s, by: va }))),
                 get('/api/v1/situation').then((t) => setSituation((s) => ({ ...s, ...t }))),
-                get('/api/v1/tracer/7').then((t) => setTracer((s) => ({ ...s, ...t }))),
             ]);
             setMessage('');
         } catch (error) {
