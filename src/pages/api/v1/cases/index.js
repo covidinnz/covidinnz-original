@@ -35,10 +35,7 @@ async function get() {
         },
 
         current: {
-            increase: totalBoard.increase,
-            fromBorder: summary.fromBorder,
-            fromCommunity: summary.fromCommunity,
-            underInvestigation: summary.underInvestigation,
+            ...summary,
 
             confirmed: {
                 total: activeCounts[0].total,

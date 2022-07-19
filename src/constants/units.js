@@ -1,4 +1,5 @@
 export function resolveValue(constants, value) {
+    value = value.replace(/\*|,|%/g, '');
     return constants.find((c) =>
         [c.name, c.id, ...(c.alts ?? [])]
             .map((a) => a.toString().toLowerCase())
@@ -56,6 +57,9 @@ export const Boards = [
     { id: 19, name: 'West Coast' },
     { id: 20, name: 'Whanganui' },
     { id: 21, name: 'At the border' },
+
+    { id: 22, name: 'Canterbury/West Coast' },
+    { id: 23, name: 'Capital & Coast/Hutt' },
 ];
 
 export const Ethnicities = [

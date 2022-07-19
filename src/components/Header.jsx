@@ -7,7 +7,7 @@ export default function Handler({ data }) {
     const totalBoard = data.vaccinations?.by?.board?.find((b) => b.id === -1);
     const first = totalBoard?.partiallyPercent || '...';
     const second = totalBoard?.fullyPercent || '...';
-    const change = data.cases?.current?.increase || '...';
+    const change = data.cases?.current?.newCases || '...';
 
     return (
         <Header>

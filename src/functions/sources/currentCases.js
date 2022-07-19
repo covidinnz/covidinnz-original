@@ -21,8 +21,7 @@ export default async function () {
     const summary = parseSummary(cheerio.html(tables[0]));
     const outcomes = parseOutcomes(cheerio.html(tables[1]));
     const activeByCount = parseActiveByCount(cheerio.html(tables[2]));
-    const activeBySource = parseActiveBySource(cheerio.html(tables[3]));
-    const allByBoard = parseAllByBoard(cheerio.html(tables[5]));
+    const allByBoard = parseAllByBoard(cheerio.html(tables[4]));
 
     return {
         checkedAt: new Date(),
@@ -30,7 +29,6 @@ export default async function () {
         summary,
         outcomes,
         activeByCount,
-        activeBySource,
         allByBoard,
     };
 }
@@ -40,11 +38,10 @@ const clean = (s) => +s?.replace(/\*|,|%/g, '') ?? null;
 function parseSummary(html) {
     const parsed = httj.parse(html).results[0].map((p) => Object.values(p)[0]);
     return {
-        increase: clean(parsed[0]),
-        fromBorder: clean(parsed[1]),
-        fromCommunity: clean(parsed[2]),
-        underInvestigation: clean(parsed[3]),
-        total: clean(parsed[4]),
+        newCases: clean(parsed[0]),
+        newReinfections: clean(parsed[1]),
+        totalCases: clean(parsed[3]),
+        totalReinfections: clean(parsed[4]),
     };
 }
 
@@ -70,22 +67,11 @@ function parseActiveByCount(html) {
     }));
 }
 
-function parseActiveBySource(html) {
-    const parsed = httj
-        .parse(html.replace('&#xA0;', 'Source').replace(/th scope="row"/g, 'td'))
-        .results[0].map((p) => Object.values(p));
-    return parsed.map((l) => ({
-        id: resolveValue(ActiveSources, l[0])?.id,
-        source: resolveValue(ActiveSources, l[0])?.name,
-        change: clean(l[1]),
-        now: clean(l[2]),
-    }));
-}
-
 function parseAllByBoard(html) {
     const parsed = httj
         .parse(html.replace('&#xA0;', 'Board').replace(/th scope="row"/g, 'td'))
         .results[0].map((p) => Object.values(p));
+    console.log(parsed);
     return parsed.map((l) => ({
         id: resolveValue(Boards, l[0])?.id,
         board: resolveValue(Boards, l[0])?.name,

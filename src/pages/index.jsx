@@ -47,16 +47,9 @@ export default function Home({ data }) {
                         <Table
                             type="left"
                             headers={[
-                                { field: 'increase', headerName: 'New', type: 'number', flex: 1 },
-                                { field: 'active', headerName: 'Total Active', type: 'number', flex: 1 },
-                                { field: 'fromCommunity', headerName: 'In the Community', type: 'number', flex: 1 },
-                                { field: 'fromBorder', headerName: 'At the Border', type: 'number', flex: 1 },
-                                {
-                                    field: 'underInvestigation',
-                                    headerName: 'Under Investigation or Other',
-                                    type: 'number',
-                                    flex: 1,
-                                },
+                                { field: 'newCases', headerName: 'New', type: 'number', flex: 1 },
+                                { field: 'newReinfections', headerName: 'Reinfections', type: 'number', flex: 1 },
+                                { field: 'active', headerName: 'Active', type: 'number', flex: 1 },
                             ]}
                             cells={[stringifyProperties({ ...data.cases, ...data.cases.current })]}
                         />
