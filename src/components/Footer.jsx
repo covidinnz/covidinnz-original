@@ -17,7 +17,7 @@ export default function _Footer() {
                     </a>
                     .<br />
                     Created by{' '}
-                    <a href="https://apteryx.xyz/" target="_blank">
+                    <a rel="noreferrer" href="https://apteryx.xyz/" target="_blank">
                         Apteryx
                     </a>
                     .
