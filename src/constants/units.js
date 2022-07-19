@@ -1,5 +1,5 @@
 export function resolveValue(constants, value) {
-    value = value.replace(/\*|,|%/g, '');
+    value = value.replace(/\*/g, '');
     return constants.find((c) =>
         [c.name, c.id, ...(c.alts ?? [])]
             .map((a) => a.toString().toLowerCase())
