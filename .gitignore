@@ -4,4 +4,4 @@ node_modules/
 template/
 .yarn/cache/
 .next/
-.env
+*.env*

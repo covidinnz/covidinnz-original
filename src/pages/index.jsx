@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from '@components/Table';
 import Chart from '@components/Chart';
-import { Page, Content, Column, Row, Item } from '@styles/styled';
+import { Page, Content, Row, Item } from '@styles/styled';
 import { COLOURS } from '@constants/variables';
 import { toNewZealandTime } from '@functions/parseDate';
 import { stringifyProperties } from '@functions/formatValue';

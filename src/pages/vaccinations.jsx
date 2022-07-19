@@ -1,9 +1,9 @@
 import React from 'react';
 import Table from '@components/Table';
-import GoogleAd from '@components/GoogleAd';
-import { Page, Content, Column, Row, Item } from '@styles/styled';
+import GoogleAd, { AdUnit } from '@components/GoogleAd';
+import { Page, Content,  Item } from '@styles/styled';
 import { toNewZealandTime } from '@functions/parseDate';
-import { addCommas, stringifyProperties } from '@functions/formatValue';
+import { stringifyProperties } from '@functions/formatValue';
 
 export default function Vaccinations({ data }) {
     return (
@@ -29,7 +29,7 @@ export default function Vaccinations({ data }) {
                     <caption>This data is as of {toNewZealandTime(data.vaccinations.updatedAt)}</caption>
                 </Item>
 
-                <GoogleAd type="banner" />
+                <GoogleAd slot={AdUnit.GraphDivider} />
 
                 <Item>
                     <h1>Demographics (5+)</h1>

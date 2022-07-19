@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from '@components/Table';
-import GoogleAd from '@components/GoogleAd';
-import { Page, Content, Column, Row, Item } from '@styles/styled';
+import GoogleAd, { AdUnit } from '@components/GoogleAd';
+import { Page, Content, Column, Item } from '@styles/styled';
 import { toNewZealandTime } from '@functions/parseDate';
 import { stringifyProperties } from '@functions/formatValue';
 
@@ -29,7 +29,7 @@ export default function Cases({ data }) {
                     <caption>This data is as of {toNewZealandTime(data.cases.updatedAt)}</caption>
                 </Item>
 
-                <GoogleAd type="banner" />
+                <GoogleAd slot={AdUnit.GraphDivider} />
 
                 <Column>
                     <Item>

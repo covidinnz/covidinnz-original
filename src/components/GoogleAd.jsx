@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 
-const BANNER_AD_SLOT = process.env.NEXT_PUBLIC_BANNER_AD_SLOT;
-const SQUARE_AD_SLOT = process.env.NEXT_PUBLIC_SQUARE_AD_SLOT;
-const VERITCAL_AD_SLOT = process.env.NEXT_PUBLIC_VERTICAL_AD_SLOT;
+export const AdUnit = {
+    GraphDivider: '1484929993'
+}
 
 export default class GoogleAd extends Component {
     constructor(props) {
         super(props);
-        if (props.type === 'square') this.slot = SQUARE_AD_SLOT;
-        else if (props.type === 'vertical') this.slot = VERITCAL_AD_SLOT;
-        else this.slot = BANNER_AD_SLOT;
+        this.slot = props.slot;
     }
 
     componentDidMount() {

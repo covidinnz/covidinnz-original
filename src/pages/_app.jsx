@@ -15,7 +15,6 @@ export default function _App({ Component, pageProps }) {
     const [cases, setCases] = useState(null);
     const [vaccinations, setVaccinations] = useState(null);
     const [situation, setSituation] = useState(null);
-    const [tracer, setTracer] = useState(null);
 
     const get = (url) =>
         fetch(url)
@@ -69,7 +68,7 @@ export default function _App({ Component, pageProps }) {
                     {message !== '' ? (
                         <Span>{message}</Span>
                     ) : (
-                        <Component {...pageProps} data={{ cases, vaccinations, situation, tracer }} />
+                        <Component {...pageProps} data={{ cases, vaccinations, situation }} />
                     )}
                 </Content>
             </Page>
