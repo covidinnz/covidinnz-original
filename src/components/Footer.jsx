@@ -7,9 +7,9 @@ export default function _Footer() {
         <Footer>
             <Container>
                 <Item>
-                    Follow COVID in NZ on{' '}
-                    <a rel="noreferrer" href="https://twitter.com/covidinnz" target="_blank">
-                        Twitter
+                    Join the{' '}
+                    <a rel="noreferrer" href="https://discord.gg/vZQbMhwsKY" target="_blank">
+                        Discord server
                     </a>
                     .<br />
                     <a rel="noreferrer" href="/docs/index.html" target="_blank">
@@ -17,7 +17,7 @@ export default function _Footer() {
                     </a>
                     .<br />
                     Created by{' '}
-                    <a rel="noreferrer" href="https://apteryx.xyz/" target="_blank">
+                    <a href="https://apteryx.xyz/" target="_blank">
                         Apteryx
                     </a>
                     .
