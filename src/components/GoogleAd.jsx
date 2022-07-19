@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 export const AdUnit = {
-    GraphDivider: '1484929993'
-}
+    GraphDivider: '1484929993',
+};
 
 export default class GoogleAd extends Component {
     constructor(props) {

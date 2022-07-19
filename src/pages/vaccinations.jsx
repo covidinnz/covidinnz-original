@@ -1,7 +1,7 @@
 import React from 'react';
 import Table from '@components/Table';
 import GoogleAd, { AdUnit } from '@components/GoogleAd';
-import { Page, Content,  Item } from '@styles/styled';
+import { Page, Content, Item } from '@styles/styled';
 import { toNewZealandTime } from '@functions/parseDate';
 import { stringifyProperties } from '@functions/formatValue';
 

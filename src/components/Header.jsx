@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Container } from '@styles/styled';
 import { COLOURS, FONTS, SIZES } from '@constants/variables';
+import Link from 'next/link';
 
 export default function Handler({ data }) {
     const totalBoard = data.vaccinations?.by?.board?.find((b) => b.id === -1);
@@ -12,9 +13,11 @@ export default function Handler({ data }) {
     return (
         <Header>
             <Container>
-                <Branding href="/">
-                    <img alt="COVID in NZ logo banner" style={{ width: '33%' }} src="/images/banner_black.png" />
-                </Branding>
+                <Link href="/">
+                    <Branding>
+                        <img alt="COVID in NZ logo banner" style={{ width: '33%' }} src="/images/banner_black.png" />
+                    </Branding>
+                </Link>
 
                 <Statistics>
                     <Item>
