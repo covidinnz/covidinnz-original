@@ -20,8 +20,8 @@ export default async function () {
 
     const summary = parseSummary(cheerio.html(tables[0]));
     const outcomes = parseOutcomes(cheerio.html(tables[1]));
-    const activeByCount = parseActiveByCount(cheerio.html(tables[2]));
-    const allByBoard = parseAllByBoard(cheerio.html(tables[4]));
+    const activeByCount = parseActiveByCount(cheerio.html(tables[3]));
+    const allByBoard = parseAllByBoard(cheerio.html(tables[5]));
 
     return {
         checkedAt: new Date(),
